@@ -1,5 +1,5 @@
 <script lang="ts">
-	import favicon from "$lib/assets/favicon.svg";
+	import favicon from "$lib/assets/favicon.png";
 	import "../app.scss";
 
 	let { children } = $props();
@@ -18,3 +18,11 @@
 <main class="container">
 	{@render children()}
 </main>
+<footer>
+	<div class="container">
+		<small>
+			Sebastian Steiner 2026<br />
+			<i> favicon - Anggara @ flaticon </i>
+		</small>
+	</div>
+</footer>
