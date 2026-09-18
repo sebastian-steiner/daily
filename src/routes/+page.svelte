@@ -48,7 +48,7 @@
         <a href={resolve("/")}>
             <h1>daily</h1>
         </a>
-        <p>Which weekday did this date fall on?</p>
+        <p>Which weekday does this date fall on?</p>
     </hgroup>
 </header>
 <main class="container">
