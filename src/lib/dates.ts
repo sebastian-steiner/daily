@@ -17,7 +17,10 @@ export const getDayCode = function (date: Date): number {
     return date.getDate() % 7;
 }
 export const getMonthCode = function (date: Date): number {
-    return [4, 0, 0, 3, 5, 1, 3, 6, 2, 4, 0, 2][date.getMonth()];
+    return getCodeForMonth(date.getMonth());
+}
+export const getCodeForMonth = function (month: number): number {
+    return [4, 0, 0, 3, 5, 1, 3, 6, 2, 4, 0, 2][month];
 }
 export const getLeapYearOffset = function (date: Date): number {
     const year = date.getFullYear();
@@ -35,12 +38,18 @@ export const getLeapYearOffset = function (date: Date): number {
     }
     return 0;
 }
+export const getCodeForDayMonth = function(day: number, month: number): number {
+    return (day + getCodeForMonth(month)) % 7;
+}
 export const getCenturyCode = function (date: Date): number {
     const century = Math.floor(date.getFullYear() / 100) % 4;
     return [0, 5, 3, 1][century];
 }
 export const getYearCode = function (date: Date): number {
     const year = date.getFullYear() % 100;
+    return getCodeForYear(year);
+}
+export const getCodeForYear = function (year: number) {
     return (year + Math.floor(year / 4) + 2) % 7;
 }
 export const getDateCode = function (date: Date): number {
