@@ -1,0 +1,4 @@
+@use '@picocss/pico/scss/pico' with (
+    $theme-color: "fuchsia",
+    $semantic-root-element: 'body div:first-child'
+);
