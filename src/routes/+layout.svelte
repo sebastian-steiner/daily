@@ -21,7 +21,7 @@
 <footer>
 	<div class="container">
 		<small>
-			Sebastian Steiner 2026<br />
+			Sebastian 2026<br />
 			<i> favicon - Anggara @ flaticon </i>
 		</small>
 	</div>
