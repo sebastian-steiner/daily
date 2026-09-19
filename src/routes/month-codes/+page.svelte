@@ -92,7 +92,7 @@
         <div role="group">
             <p>
                 {doneCount}/{totalCount} done {"(" +
-                    String((doneCount / totalCount) * 100) +
+                    Number((doneCount / totalCount) * 100).toFixed(1) +
                     "%)"}
             </p>
             <button
