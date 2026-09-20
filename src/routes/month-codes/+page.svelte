@@ -18,7 +18,7 @@
         "November",
         "December",
     ];
-    
+
     let months = $state<number[]>([]);
 
     let currentMonth = $state(0);
@@ -63,6 +63,7 @@
         doneCount = 0;
         currentMonth = popRandomMonth();
         guessing = true;
+        isDone = false;
     };
 
     onMount(init);
@@ -83,7 +84,10 @@
                 <h3>Congrats! You're done!</h3>
             {/if}
             {#if !guessing && !isDone}
-                <h3>{getCodeForMonth(currentMonth)} {isCorrect ? "✅" : "❌"}</h3>
+                <h3>
+                    {getCodeForMonth(currentMonth)}
+                    {isCorrect ? "✅" : "❌"}
+                </h3>
             {/if}
         </div>
 
@@ -95,11 +99,13 @@
                     Number((doneCount / totalCount) * 100).toFixed(1) +
                     "%)"}
             </p>
-            <button
-                class="secondary"
-                onclick={onNext}
-                disabled={guessing || isDone}>Next</button
-            >
+            {#if !isDone}
+                <button class="secondary" onclick={onNext} disabled={guessing}
+                    >Next</button
+                >
+            {:else}
+                <button onclick={init}>Reset</button>
+            {/if}
         </div>
     </section>
 </main>

@@ -47,6 +47,7 @@
         doneCount = 0;
         currentYear = popRandomYear();
         guessing = true;
+        isDone = false;
     };
 
     onMount(init);
@@ -79,11 +80,13 @@
                     Number((doneCount / totalCount) * 100).toFixed(0) +
                     "%)"}
             </p>
-            <button
-                class="secondary"
-                onclick={onNext}
-                disabled={guessing || isDone}>Next</button
-            >
+            {#if !isDone}
+                <button class="secondary" onclick={onNext} disabled={guessing}
+                    >Next</button
+                >
+            {:else}
+                <button onclick={init}>Reset</button>
+            {/if}
         </div>
     </section>
 </main>
