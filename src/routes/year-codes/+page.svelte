@@ -8,7 +8,7 @@
     let currentYear = $state(0);
     let isDone = $state(false);
 
-    let wrongs = $state<number[]>([]);
+    let mistakes = $state<number[]>([]);
 
     let guessing = $state(true);
     let isCorrect = $state(true);
@@ -27,7 +27,7 @@
             }
         } else {
             isCorrect = false;
-            wrongs = [...wrongs, currentYear];
+            mistakes = [...mistakes, currentYear];
             years = [...years, currentYear];
         }
     };
@@ -46,7 +46,7 @@
 
     let init = function (): void {
         years = Array.from(Array(100).keys());
-        wrongs = [];
+        mistakes = [];
         totalCount = years.length;
         doneCount = 0;
         currentYear = popRandomYear();
@@ -54,9 +54,9 @@
         isDone = false;
     };
 
-    let redoWrongs = function (): void {
-        years = wrongs.slice();
-        wrongs = [];
+    let redoMistakes = function (): void {
+        years = mistakes.slice();
+        mistakes = [];
         totalCount = years.length;
         doneCount = 0;
         currentYear = popRandomYear();
@@ -79,7 +79,10 @@
             {#if !isDone}
                 <h3>{currentYear}</h3>
             {:else}
-                <h3>Congrats! You're done! ({wrongs.length} {wrongs.length === 1 ? 'error' : 'errors'})</h3>
+                <h3>
+                    Congrats! You're done! ({mistakes.length}
+                    {mistakes.length === 1 ? "error" : "errors"})
+                </h3>
             {/if}
             {#if !guessing && !isDone}
                 <h3>{getCodeForYear(currentYear)} {isCorrect ? "✅" : "❌"}</h3>
@@ -99,7 +102,13 @@
                     >Next</button
                 >
             {:else}
-                <button onclick={redoWrongs} class="secondary">Redo Wrongs</button>
+                {#if mistakes.length > 0}
+                    <button onclick={redoMistakes} class="secondary"
+                        >Correct Mistakes</button
+                    >
+                {:else}
+                    <p>No mistakes!</p>
+                {/if}
                 <button onclick={init}>Reset</button>
             {/if}
         </div>
