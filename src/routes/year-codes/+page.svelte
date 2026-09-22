@@ -8,6 +8,8 @@
     let currentYear = $state(0);
     let isDone = $state(false);
 
+    let wrongs = $state<number[]>([]);
+
     let guessing = $state(true);
     let isCorrect = $state(true);
     let totalCount = $state(0);
@@ -25,6 +27,7 @@
             }
         } else {
             isCorrect = false;
+            wrongs = [...wrongs, currentYear];
             years = [...years, currentYear];
         }
     };
@@ -37,12 +40,23 @@
     let popRandomYear = function (): number {
         const randomIndex = Math.floor(Math.random() * years.length);
         const year = years[randomIndex];
-        years = years.filter((y) => y !== year);
+        years = years.filter((_, i) => i !== randomIndex);
         return year;
     };
 
     let init = function (): void {
-        years = Array.from(Array(100).keys());
+        years = Array.from(Array(10).keys());
+        wrongs = [];
+        totalCount = years.length;
+        doneCount = 0;
+        currentYear = popRandomYear();
+        guessing = true;
+        isDone = false;
+    };
+
+    let redoWrongs = function (): void {
+        years = wrongs.slice();
+        wrongs = [];
         totalCount = years.length;
         doneCount = 0;
         currentYear = popRandomYear();
@@ -65,7 +79,7 @@
             {#if !isDone}
                 <h3>{currentYear}</h3>
             {:else}
-                <h3>Congrats! You're done!</h3>
+                <h3>Congrats! You're done! ({wrongs.length} {wrongs.length === 1 ? 'error' : 'errors'})</h3>
             {/if}
             {#if !guessing && !isDone}
                 <h3>{getCodeForYear(currentYear)} {isCorrect ? "✅" : "❌"}</h3>
@@ -75,16 +89,17 @@
         <NumberGrid active={guessing} onClick={onGuess} />
 
         <div role="group">
-            <p>
-                {doneCount}/{totalCount} done {"(" +
-                    Number((doneCount / totalCount) * 100).toFixed(0) +
-                    "%)"}
-            </p>
             {#if !isDone}
+                <p>
+                    {doneCount}/{totalCount} done {"(" +
+                        Number((doneCount / totalCount) * 100).toFixed(0) +
+                        "%)"}
+                </p>
                 <button class="secondary" onclick={onNext} disabled={guessing}
                     >Next</button
                 >
             {:else}
+                <button onclick={redoWrongs} class="secondary">Redo Wrongs</button>
                 <button onclick={init}>Reset</button>
             {/if}
         </div>
