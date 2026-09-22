@@ -45,7 +45,7 @@
     };
 
     let init = function (): void {
-        years = Array.from(Array(10).keys());
+        years = Array.from(Array(100).keys());
         wrongs = [];
         totalCount = years.length;
         doneCount = 0;
