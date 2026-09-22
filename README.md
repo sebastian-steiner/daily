@@ -29,5 +29,3 @@ pnpm run preview
 
 It's kind of a fun party trick to "know" all weekdays for any date between October 1582, when the Gregorian calendar was introduced, and effectively arbitrary future dates.
 However, for me it's really fun to show this to others if I can trust myself to be quick and most importantly correct most of the time.
-
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
